@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb95053422a46f4c897b5c9a0475939, type: 3}
+  m_Name: AHC_Synth Helmet
+  m_EditorClassIdentifier: 
+  itemName: Synth Helmet
+  icon: {fileID: 0}
+  stackable: 0
+  infoDisplays:
+  - icon: {fileID: 0}
+    title: 'Name: '
+    info: ACH_Synth Helmet
+  - icon: {fileID: 0}
+    title: 'Weight: '
+    info: 0
+  - icon: {fileID: 0}
+    title: 'Value: '
+    info: 0
+  - icon: {fileID: 0}
+    title: 'Armour: '
+    info: 25
+  - icon: {fileID: 0}
+    title: 'Type: '
+    info: heavy
+  - icon: {fileID: 0}
+    title: 'Area: '
+    info: head
+  weight: 3
+  value: 125
+  armourValue: 25
+  armourArea: 0
+  armourType: 2
