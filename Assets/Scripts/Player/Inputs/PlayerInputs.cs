@@ -134,6 +134,24 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lean Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ae03344-32f4-48b1-860b-57da7872a1e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lean Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6e6b664-0962-4d70-8ca7-b9fcbe9fbc5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -206,7 +224,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4579dd93-f160-4913-9492-5fae02517c36"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -411,6 +429,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c433af67-571d-45b0-b188-ddc327271d10"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Lean Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce375c65-aebe-49b1-bc95-10ba403a3c5c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Lean Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -555,6 +595,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Keyboard_MeleeItem = m_Keyboard.FindAction("Melee Item", throwIfNotFound: true);
         m_Keyboard_Pause = m_Keyboard.FindAction("Pause", throwIfNotFound: true);
         m_Keyboard_Inventory = m_Keyboard.FindAction("Inventory", throwIfNotFound: true);
+        m_Keyboard_LeanLeft = m_Keyboard.FindAction("Lean Left", throwIfNotFound: true);
+        m_Keyboard_LeanRight = m_Keyboard.FindAction("Lean Right", throwIfNotFound: true);
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Move = m_Mouse.FindAction("Move", throwIfNotFound: true);
@@ -633,6 +675,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_MeleeItem;
     private readonly InputAction m_Keyboard_Pause;
     private readonly InputAction m_Keyboard_Inventory;
+    private readonly InputAction m_Keyboard_LeanLeft;
+    private readonly InputAction m_Keyboard_LeanRight;
     public struct KeyboardActions
     {
         private @PlayerInputs m_Wrapper;
@@ -649,6 +693,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @MeleeItem => m_Wrapper.m_Keyboard_MeleeItem;
         public InputAction @Pause => m_Wrapper.m_Keyboard_Pause;
         public InputAction @Inventory => m_Wrapper.m_Keyboard_Inventory;
+        public InputAction @LeanLeft => m_Wrapper.m_Keyboard_LeanLeft;
+        public InputAction @LeanRight => m_Wrapper.m_Keyboard_LeanRight;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -694,6 +740,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @LeanLeft.started += instance.OnLeanLeft;
+            @LeanLeft.performed += instance.OnLeanLeft;
+            @LeanLeft.canceled += instance.OnLeanLeft;
+            @LeanRight.started += instance.OnLeanRight;
+            @LeanRight.performed += instance.OnLeanRight;
+            @LeanRight.canceled += instance.OnLeanRight;
         }
 
         private void UnregisterCallbacks(IKeyboardActions instance)
@@ -734,6 +786,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @LeanLeft.started -= instance.OnLeanLeft;
+            @LeanLeft.performed -= instance.OnLeanLeft;
+            @LeanLeft.canceled -= instance.OnLeanLeft;
+            @LeanRight.started -= instance.OnLeanRight;
+            @LeanRight.performed -= instance.OnLeanRight;
+            @LeanRight.canceled -= instance.OnLeanRight;
         }
 
         public void RemoveCallbacks(IKeyboardActions instance)
@@ -845,6 +903,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnMeleeItem(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnLeanLeft(InputAction.CallbackContext context);
+        void OnLeanRight(InputAction.CallbackContext context);
     }
     public interface IMouseActions
     {

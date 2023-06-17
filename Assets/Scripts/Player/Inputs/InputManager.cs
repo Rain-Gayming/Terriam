@@ -33,6 +33,10 @@ public class InputManager : MonoBehaviour
     public bool pause;
     [BoxGroup("Keyboard")]
     public bool inventory;
+    [BoxGroup("Keyboard")]
+    public bool leftLean;
+    [BoxGroup("Keyboard")]
+    public bool rightLean;
 
     [BoxGroup("Mouse")]
     public Vector2 mouseMove;
@@ -87,7 +91,12 @@ public class InputManager : MonoBehaviour
 
         inputs.Keyboard.Inventory.performed += _ => inventory = true;
         inputs.Keyboard.Inventory.canceled += _ => inventory = false;
+        
+        inputs.Keyboard.LeanLeft.performed += _ => leftLean = true;
+        inputs.Keyboard.LeanLeft.canceled += _ => leftLean = false;
 
+        inputs.Keyboard.LeanRight.performed += _ => rightLean = true;
+        inputs.Keyboard.LeanRight.canceled += _ => rightLean = false;
         #endregion 
    
         #region mouse

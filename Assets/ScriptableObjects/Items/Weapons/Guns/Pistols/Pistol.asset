@@ -36,8 +36,7 @@ MonoBehaviour:
     info: 90
   weight: 5
   value: 60
-  weaponObject: {fileID: 946799109947203142, guid: 60e6a6d326169ce4c9ce0bf43a9cbb5a,
-    type: 3}
+  weaponObject: EW_Pistol
   damage: 50
   ammo: 15
   reloadSpeed: 2

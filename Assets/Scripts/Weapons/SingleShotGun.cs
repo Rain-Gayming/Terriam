@@ -87,7 +87,7 @@ public class SingleShotGun : WeaponItem
 
 	void Start()
 	{
-		PV = GetComponent<PhotonView>();
+		PV = GetComponentInParent<PhotonView>();
 		ammo = gunInfo.ammo;	
 		
 		if(!PV.IsMine){

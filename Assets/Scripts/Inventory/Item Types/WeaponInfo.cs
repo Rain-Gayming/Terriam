@@ -8,7 +8,7 @@ public class WeaponInfo : ItemInfo
 {
 
 	[BoxGroup("Weapon Info")]
-	public GameObject weaponObject;
+	public string weaponObject;
 	[BoxGroup("Weapon Info/Stats")]
 	public float damage;
 	[BoxGroup("Weapon Info/Stats")]

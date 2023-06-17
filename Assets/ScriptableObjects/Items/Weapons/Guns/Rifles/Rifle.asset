@@ -36,8 +36,7 @@ MonoBehaviour:
     info: 60
   weight: 15
   value: 160
-  weaponObject: {fileID: 5918505235918473338, guid: 668bf1d858db7bf4ea643f337c9dd3c9,
-    type: 3}
+  weaponObject: EW_Rifle
   damage: 35
   ammo: 30
   reloadSpeed: 2

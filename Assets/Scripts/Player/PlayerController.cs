@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.UI;
 using TMPro;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -15,11 +16,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	[BoxGroup("References")]
 	public GameObject cameraHolder;
 	[BoxGroup("References")]
+	public GameObject camera;
+	[BoxGroup("References")]
 	public Rigidbody rb;
 	[BoxGroup("References")]	
 	public PhotonView PV;
 	[BoxGroup("References")]
 	public PlayerManager playerManager;
+	[BoxGroup("References")]
+	public Animator anim;
+	
 	
 	[BoxGroup("UI")]
 	public GameObject gameUI; 	
@@ -51,8 +57,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	[BoxGroup("Server")]
 	public bool isServer;
 	 
-
-
 	[BoxGroup("Weapon")]
 	public WeaponItem primaryItem;
 	[BoxGroup("Weapon")]
@@ -117,7 +121,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 		if(!PV.IsMine)
 			return;
 		if(inputManager.move != Vector2.zero)
-			rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+			rb.MovePosition(rb.position + camera.transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
 		else
 			rb.velocity = new Vector3(0, rb.velocity.y, 0);
 	}
@@ -151,6 +155,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 			rb.velocity = Vector3.zero;
 		}
 		
+		if(inputManager.leftLean){
+			anim.SetBool("Left Lean", true);
+		}else if(inputManager.rightLean){
+			anim.SetBool("Right Lean", true);
+		}else{
+			anim.SetBool("Left Lean", false);
+			anim.SetBool("Right Lean", false);
+		}
+
+
+
 		if(isServer){
 			for (int i = 0; i < serverDisabled.Length; i++)
 			{
@@ -187,7 +202,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 		}
 
 		Destroy(weaponEquippedObject);
-		GameObject newWeapon = Instantiate(weapon.weaponObject);
+		GameObject newWeapon = PhotonNetwork.Instantiate(Path.Combine("Items",weapon.weaponObject), Vector3.zero, Quaternion.identity);
 		newWeapon.transform.parent = weaponPosition.transform;
 		weaponEquippedObject = newWeapon;
 	}
@@ -203,7 +218,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 		verticalLookRotation += inputManager.mouseMove.y * mouseSensitivityY;
 		verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
 
-		cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+		camera.transform.localEulerAngles = Vector3.left * verticalLookRotation;
 	}
 
 	void Move()
