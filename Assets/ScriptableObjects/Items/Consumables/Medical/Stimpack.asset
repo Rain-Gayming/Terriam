@@ -45,4 +45,4 @@ MonoBehaviour:
   thirstChange: 1
   thirst: -5
   hungerChange: 0
-  hunger: 0
+  hunger: -3
