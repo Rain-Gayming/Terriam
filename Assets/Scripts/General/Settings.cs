@@ -28,7 +28,7 @@ public class Settings : MonoBehaviour
 {
     public string saveFile;
     public SettingsData settingsData = new SettingsData();
-    PlayerController playerController;
+    public PlayerController playerController;
     [BoxGroup("Fullscreen")]
     public TMP_Dropdown fullscreenDropdown;
     
@@ -72,7 +72,6 @@ public class Settings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
         resolutions = Screen.resolutions;
@@ -123,8 +122,8 @@ public class Settings : MonoBehaviour
 
         xSensitivityText.text = "X Sensitivity (" + xSensitivitySlider.value + "):";
         ySensitivityText.text = "Y Sensitivity (" + ySensitivitySlider.value + "):";
-        playerController.mouseSensitivityX = xSensitivitySlider.value;
-        playerController.mouseSensitivityY = ySensitivitySlider.value;
+        playerController.mouseSensitivityX = xSensitivitySlider.value / 10;
+        playerController.mouseSensitivityY = ySensitivitySlider.value / 10;
     }
 
     public void Back()

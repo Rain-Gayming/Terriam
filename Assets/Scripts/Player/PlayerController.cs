@@ -94,6 +94,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	[BoxGroup("Survival/Health")]
 	public Image healthSlider;
 
+	[BoxGroup("Settings")]
+	public GameObject settingsMenu;
+	[BoxGroup("Settings")]
+	public GameObject controlsMenu;
 	public bool paused;
 
 	void Awake()
@@ -114,6 +118,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 			Destroy(gameUI);
 			Destroy(pauseUI);
 		}
+		StartCoroutine(LoadSettingsCo());
+	}
+
+	public IEnumerator LoadSettingsCo()
+	{
+		settingsMenu.SetActive(true);
+		controlsMenu.SetActive(true);
+		yield return new WaitForSeconds(0.1f);
+		settingsMenu.SetActive(false);
+		controlsMenu.SetActive(false);
 	}
 
 	void FixedUpdate()
@@ -187,7 +201,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 			Cursor.visible = false;
 		}
 
-		if(inputManager.pause || Input.GetKeyDown(KeyCode.F1) && !paused){
+		if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.F1) && !paused){
 			paused = true;
 			inputManager.pause = false;
 			pauseUI.SetActive(true);

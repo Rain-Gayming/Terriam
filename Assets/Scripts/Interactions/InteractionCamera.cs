@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 
 public class InteractionCamera : MonoBehaviour
 {
+    public PlayerInputs inputs;
     [BoxGroup("References")]
     public InputManager inputManager;
     [BoxGroup("References")]
@@ -19,13 +20,19 @@ public class InteractionCamera : MonoBehaviour
     public Transform interactPoint;
     [BoxGroup("Interaction Info")]
     public float interactRange;
+    private void Start() {
+        inputs = new PlayerInputs();
+    }
     private void Update() {
         RaycastHit hit;
         if(Physics.Raycast(interactPoint.position, interactPoint.forward, out hit, interactRange)){
             if(hit.transform.GetComponent<Interactable>()){
                 interactObject.SetActive(true);
-
-                string pth = inputManager.inputs.Keyboard.Interact.bindings[0].path;
+                 string pth;
+                if(inputs.Keyboard.Interact.bindings[1].overridePath != null)
+                    pth = inputs.Keyboard.Interact.bindings[1].overridePath;
+                else                    
+                    pth = inputs.Keyboard.Interact.bindings[0].path;
                 int length = pth.Length;
                 int lengthResult = length -= 11;
                 string result = pth.Substring(11, lengthResult);
@@ -65,9 +72,11 @@ public class InteractionCamera : MonoBehaviour
                 if(inputManager.interact)
                     hit.transform.GetComponent<Interactable>().Interact(gameObject);
                 inputManager.interact = false;
+            }else{
+                interactObject.SetActive(false);
             }
         }else{
                 interactObject.SetActive(false);
-            }
+        }
     }
 }

@@ -348,8 +348,12 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: Game
+    path: Assets/Resources/PhotonPrefabs/Scenes/Game.unity
   - name: Menu
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Resources/PhotonPrefabs/Scenes/Menu.unity
   - name: Game
     path: Assets/Scenes/Game.unity
+  - name: Menu
+    path: Assets/Scenes/Menu.unity
   _notes: []
