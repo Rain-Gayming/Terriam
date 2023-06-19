@@ -79,7 +79,7 @@ public class ConsumableSlotDisplay : ItemSlotDisplay
     {
         consumableItem.amount--;   
         GetComponentInParent<PlayerController>().currentHealth += consumableItem.consumableInfo.health;
-        GetComponentInParent<PlayerController>().radiation += consumableItem.consumableInfo.radiation;
+        GetComponentInParent<PlayerController>().TakePassiveRadiation(consumableItem.consumableInfo.radiation);
         UpdateInfo();
     }
 }

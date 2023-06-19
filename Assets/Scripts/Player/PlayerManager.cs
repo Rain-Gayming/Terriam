@@ -46,11 +46,34 @@ public class PlayerManager : MonoBehaviour
 		}
 		controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position, spawnpoint.rotation, 0, new object[] { PV.ViewID });
 	}
+	void Respawn()
+	{
+		if(lastSpawnpoint == null){
+			
+			spawnpoint = SpawnManager.Instance.GetSpawnpoint();
+			lastSpawnpoint = spawnpoint;
+		}else{
+			spawnpoint = SpawnManager.Instance.GetSpawnpoint();
+			if(spawnpoint == lastSpawnpoint){
+				Transform spawnpoint = SpawnManager.Instance.GetSpawnpoint();
+			lastSpawnpoint = spawnpoint;
+			}
+			lastSpawnpoint = spawnpoint;
+		}
+		controller.transform.position = spawnpoint.position;
+		controller.transform.rotation = spawnpoint.rotation;
+		controller.GetComponent<PlayerController>().activeRadiation = false;
+		controller.GetComponent<PlayerController>().radiation = 0;
+		controller.GetComponent<PlayerController>().currentMaxHealth = controller.GetComponent<PlayerController>().maxHealth;
+		controller.GetComponent<PlayerController>().currentHealth = controller.GetComponent<PlayerController>().maxHealth;
+	}
+
 
 	public void Die()
 	{
-		PhotonNetwork.Destroy(controller);
-		CreateController();
+		//PhotonNetwork.Destroy(controller);
+		//CreateController();
+		Respawn();
 
 		deaths++;
 

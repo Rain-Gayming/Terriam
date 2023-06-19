@@ -146,6 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6644672305577020443}
   - component: {fileID: 8963640897164934121}
+  - component: {fileID: 4639893508782066383}
   - component: {fileID: 91471096589463822}
   m_Layer: 0
   m_Name: EW_Pistol
@@ -191,10 +192,15 @@ MonoBehaviour:
   cam: {fileID: 0}
   shootPoint: {fileID: 8182769178896627304}
   gunInfo: {fileID: 11400000, guid: 7d265224a6a25bb449941c374d0946a4, type: 2}
+  barrelPoint: {fileID: 5341983959165293744}
+  gripPoint: {fileID: 1524959941784199960}
   inputManager: {fileID: 0}
   playerRigidBody: {fileID: 0}
   controller: {fileID: 0}
   ui: {fileID: 7424693049882284136}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 63
   currentAmmoText: {fileID: 8857073199977916789}
   ammoReserveText: {fileID: 4476965578469108182}
   ammoTypeText: {fileID: 5946135610465344116}
@@ -210,6 +216,22 @@ MonoBehaviour:
   multiplier: {x: 2, y: 2, z: 2}
   rotSpeed: 2
   recoilVector: {x: -0.005, y: -0.025, z: -0.025}
+--- !u!114 &4639893508782066383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946799109947203142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a3fdd6d89e3c44d9ede206ca9ffd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGun: {fileID: 8963640897164934121}
+  leftHand: {fileID: 0}
+  rightHand: {fileID: 0}
+  builder: {fileID: 0}
 --- !u!114 &91471096589463822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +526,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4776045631909922242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524959941784199960}
+  m_Layer: 0
+  m_Name: Barrel Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1524959941784199960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4776045631909922242}
+  m_LocalRotation: {x: 0.8011282, y: -0.57441354, z: -0.13858138, w: 0.095067486}
+  m_LocalPosition: {x: 0.0926, y: -0.0417, z: 0.0343}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 713156569165878953}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: -0.394, y: -160.654, z: -108.786}
 --- !u!1 &7205188087867753285
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +762,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7829694344727496241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.262, y: -0.18, z: 0.373}
+  m_LocalPosition: {x: 0.284, y: -0.161, z: 0.498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -718,6 +771,37 @@ Transform:
   m_Father: {fileID: 6644672305577020443}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8149632762780489511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5341983959165293744}
+  m_Layer: 0
+  m_Name: Grip Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5341983959165293744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8149632762780489511}
+  m_LocalRotation: {x: 0.6759292, y: 0.7258183, z: 0.0924035, w: -0.08814308}
+  m_LocalPosition: {x: -0.0829, y: -0.0611, z: -0.0384}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 713156569165878953}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 194.672, y: 0.17999268, z: -94.100006}
 --- !u!1 &8846056656587460780
 GameObject:
   m_ObjectHideFlags: 0

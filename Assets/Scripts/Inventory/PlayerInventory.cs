@@ -95,8 +95,14 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         if(inputManager.inventory){
-            inventoryObject.SetActive(!inventoryObject.activeInHierarchy);
-            playerController.paused =  !playerController.paused;
+            if(inventoryObject.activeInHierarchy){
+                inventoryObject.SetActive(false);
+                playerController.paused =  false;
+            }else{
+                inventoryObject.SetActive(true);
+                playerController.paused =  true;
+            }
+            playerController.pauseUI.SetActive(false);
             inputManager.inventory = false;
         }
 

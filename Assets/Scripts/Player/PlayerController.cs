@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	[BoxGroup("References")]
 	public InputManager inputManager;
 	[BoxGroup("References")]
-	public GameObject cameraHolder;
-	[BoxGroup("References")]
 	public GameObject camera;
 	[BoxGroup("References")]
 	public Rigidbody rb;
@@ -91,6 +89,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	public float currentHealth;
 	[BoxGroup("Survival/Radiation")]
 	public float radiation;
+	[BoxGroup("Survival/Radiation")]
+	public bool activeRadiation;
+	[BoxGroup("Survival/Radiation")]
+	public bool canTakeRadiationDamage = true;
 	[BoxGroup("Survival/Health")]
 	public Image healthSlider;
 
@@ -109,6 +111,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	{
 		if(PV.IsMine)
 		{
+			currentMaxHealth = maxHealth;
 			currentHealth = maxHealth;
 		}
 		else
@@ -146,8 +149,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 			return;
 			
 		healthSlider.fillAmount = currentHealth / maxHealth;
-		if(currentHealth > maxHealth){
-			currentHealth = maxHealth;
+		if(currentHealth > currentMaxHealth){
+			currentHealth = currentMaxHealth;
 		}
 
 		if(!paused && !isServer){
@@ -206,6 +209,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 			inputManager.pause = false;
 			pauseUI.SetActive(true);
 			gameUI.SetActive(false);	
+			GetComponent<PlayerInventory>().inventoryObject.SetActive(false);
+		}
+
+		if(activeRadiation && canTakeRadiationDamage){
+			StartCoroutine(TakeActiveRadiation(radiation));
+		}
+
+		if(currentHealth <= 0){
+			Die(); 
 		}
 	}
 
@@ -221,7 +233,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 		weaponEquippedObject = newWeapon;
 	}
 
-# region movement
+#region movement
 	void Look()
 	{
 		if(paused || isServer)
@@ -280,8 +292,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	}
 #endregion
 
+#region radiation
 
+	public void TakePassiveRadiation(float radiation)
+	{
+		currentMaxHealth -= radiation;
+	}
 
+	public void RemoveRadiation(float radiation)
+	{
+		currentMaxHealth += radiation;
+	}
+
+	public IEnumerator TakeActiveRadiation(float radiation)
+	{
+		canTakeRadiationDamage = false;
+		yield return new WaitForSeconds(0.25f);
+		currentMaxHealth -= radiation;
+		canTakeRadiationDamage = true;
+	}
+
+#endregion
 }
 
 

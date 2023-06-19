@@ -14,6 +14,10 @@ public class SingleShotGun : WeaponItem
 	public Transform shootPoint;
 	[BoxGroup("References")]
 	public WeaponInfo gunInfo;
+	[BoxGroup("References")]
+	public Transform barrelPoint;
+	[BoxGroup("References")]
+	public Transform gripPoint;
 
 
 	[BoxGroup("Components")]
@@ -28,7 +32,8 @@ public class SingleShotGun : WeaponItem
 	public GameObject ui;
 
 	PhotonView PV;
-
+	[BoxGroup("Components")]
+	public LayerMask hitMask;
 	float fireTime;
 	float reloadTimer;
 	
@@ -199,13 +204,13 @@ public class SingleShotGun : WeaponItem
 
 	void Shoot()
 	{
-		Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-		ray.origin = shootPoint.position;
-		if(Physics.Raycast(ray, out RaycastHit hit))
+		if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, 1000, hitMask, QueryTriggerInteraction.Ignore))
 		{
-			hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((WeaponInfo)itemInfo).damage);
-			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemInfo).damage);
-			PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+			if(hit.collider.isTrigger == false){		
+				hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((WeaponInfo)itemInfo).damage);
+				hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemInfo).damage);
+				PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);	
+			}
 		}
 		StartCoroutine(ShootRecoil());
 	}
